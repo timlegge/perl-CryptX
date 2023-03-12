@@ -162,6 +162,22 @@ typedef struct x25519_struct {          /* used by Crypt::PK::X25519 */
   int initialized;
 } *Crypt__PK__X25519;
 
+// Assumes little endian
+void printBits(size_t const size, void const * const ptr)
+{
+    unsigned char *b = (unsigned char*) ptr;
+    unsigned char byte;
+    int i, j;
+
+    for (i = 0; i < size; i++) {
+        for (j = 7; j >= 0; j--) {
+            byte = (b[i] >> j) & 1;
+            printf("%u", byte);
+        }
+    }
+    puts("");
+}
+
 STATIC int cryptx_internal_mp2hex_with_leading_zero(mp_int * a, char *str, int maxlen, int minlen) {
   int len, rv;
 
